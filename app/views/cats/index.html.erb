@@ -52,3 +52,13 @@
 <div class="mt-3">
   <%= link_to "New cat", new_cat_path, class: "btn btn-primary" %>
 </div>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= sort_link(@q, :id, 'ID') %></th>
+      <th><%= sort_link(@q, :name, '名前') %></th>
+      <th><%= sort_link(@q, :age, '年齢') %></th>
+    </tr>
+  </thead>
+</table>
