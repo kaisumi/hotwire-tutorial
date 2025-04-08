@@ -4,6 +4,38 @@
 
 <h1>Cats</h1>
 
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">検索</h5>
+    <%= search_form_for @q, class: "mb-3" do |f| %>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :name_cont, "名前" %>
+            <%= f.search_field :name_cont, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :age_gteq, "年齢（以上）" %>
+            <%= f.number_field :age_gteq, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :age_lteq, "年齢（以下）" %>
+            <%= f.number_field :age_lteq, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-12">
+          <%= f.submit "検索", class: "btn btn-primary" %>
+          <%= link_to "リセット", cats_path, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <div id="cats">
   <% @cats.each do |cat| %>
     <%= render cat %>

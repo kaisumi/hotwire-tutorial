@@ -3,7 +3,9 @@ class CatsController < ApplicationController
 
   # GET /cats
   def index
-    @cats = Cat.page(params[:page])
+    @q = Cat.ransack(params[:q])
+    @q.sorts = 'id desc' if @q.sorts.empty?
+    @cats = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /cats/1
