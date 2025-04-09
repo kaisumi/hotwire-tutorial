@@ -1,8 +1,7 @@
-<%= form_with(model: cat) do |form| %>
+<%= bootstrap_form_with(model: cat, class: "mt-3") do |form| %>
   <% if cat.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(cat.errors.count, "error") %> prohibited this cat from being saved:</h2>
-
       <ul>
         <% cat.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,17 +10,17 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= form.text_field :name %>
+    </div>
+    <div class="col-md-6">
+      <%= form.number_field :age %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :age, style: "display: block" %>
-    <%= form.number_field :age %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="mt-3">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "戻る", cats_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
