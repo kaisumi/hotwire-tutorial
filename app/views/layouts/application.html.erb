@@ -4,6 +4,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "Hotwire Tutorial" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -19,6 +20,52 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="position-sticky pt-3">
+            <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>動物一覧</span>
+            </h5>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <%= link_to cats_path, class: "nav-link #{current_page?(cats_path) ? 'active' : ''}" do %>
+                  <span class="me-2">🐱</span>
+                  ねこ
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "#", class: "nav-link" do %>
+                  <span class="me-2">🐕</span>
+                  いぬ
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "#", class: "nav-link" do %>
+                  <span class="me-2">🦉</span>
+                  ふくろう
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "#", class: "nav-link" do %>
+                  <span class="me-2">🐤</span>
+                  ひよこ
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "#", class: "nav-link" do %>
+                  <span class="me-2">🦔</span>
+                  ハリネズミ
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <%= yield %>
+        </main>
+      </div>
+    </div>
   </body>
 </html>
