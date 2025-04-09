@@ -3,7 +3,8 @@ class HedgehogsController < ApplicationController
 
   # GET /hedgehogs
   def index
-    @hedgehogs = Hedgehog.all
+    @q = Hedgehog.ransack(params[:q])
+    @hedgehogs = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /hedgehogs/1
@@ -24,7 +25,7 @@ class HedgehogsController < ApplicationController
     @hedgehog = Hedgehog.new(hedgehog_params)
 
     if @hedgehog.save
-      redirect_to @hedgehog, notice: "Hedgehog was successfully created."
+      redirect_to @hedgehog, notice: 'Hedgehog was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +34,7 @@ class HedgehogsController < ApplicationController
   # PATCH/PUT /hedgehogs/1
   def update
     if @hedgehog.update(hedgehog_params)
-      redirect_to @hedgehog, notice: "Hedgehog was successfully updated.", status: :see_other
+      redirect_to @hedgehog, notice: 'Hedgehog was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +43,7 @@ class HedgehogsController < ApplicationController
   # DELETE /hedgehogs/1
   def destroy
     @hedgehog.destroy!
-    redirect_to hedgehogs_url, notice: "Hedgehog was successfully destroyed.", status: :see_other
+    redirect_to hedgehogs_url, notice: 'Hedgehog was successfully destroyed.', status: :see_other
   end
 
   private

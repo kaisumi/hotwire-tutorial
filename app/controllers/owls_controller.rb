@@ -3,7 +3,8 @@ class OwlsController < ApplicationController
 
   # GET /owls
   def index
-    @owls = Owl.all
+    @q = Owl.ransack(params[:q])
+    @owls = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /owls/1
@@ -24,7 +25,7 @@ class OwlsController < ApplicationController
     @owl = Owl.new(owl_params)
 
     if @owl.save
-      redirect_to @owl, notice: "Owl was successfully created."
+      redirect_to @owl, notice: 'Owl was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +34,7 @@ class OwlsController < ApplicationController
   # PATCH/PUT /owls/1
   def update
     if @owl.update(owl_params)
-      redirect_to @owl, notice: "Owl was successfully updated.", status: :see_other
+      redirect_to @owl, notice: 'Owl was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +43,7 @@ class OwlsController < ApplicationController
   # DELETE /owls/1
   def destroy
     @owl.destroy!
-    redirect_to owls_url, notice: "Owl was successfully destroyed.", status: :see_other
+    redirect_to owls_url, notice: 'Owl was successfully destroyed.', status: :see_other
   end
 
   private

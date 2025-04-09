@@ -3,7 +3,8 @@ class ChicksController < ApplicationController
 
   # GET /chicks
   def index
-    @chicks = Chick.all
+    @q = Chick.ransack(params[:q])
+    @chicks = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /chicks/1
@@ -24,7 +25,7 @@ class ChicksController < ApplicationController
     @chick = Chick.new(chick_params)
 
     if @chick.save
-      redirect_to @chick, notice: "Chick was successfully created."
+      redirect_to @chick, notice: 'Chick was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +34,7 @@ class ChicksController < ApplicationController
   # PATCH/PUT /chicks/1
   def update
     if @chick.update(chick_params)
-      redirect_to @chick, notice: "Chick was successfully updated.", status: :see_other
+      redirect_to @chick, notice: 'Chick was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +43,7 @@ class ChicksController < ApplicationController
   # DELETE /chicks/1
   def destroy
     @chick.destroy!
-    redirect_to chicks_url, notice: "Chick was successfully destroyed.", status: :see_other
+    redirect_to chicks_url, notice: 'Chick was successfully destroyed.', status: :see_other
   end
 
   private
